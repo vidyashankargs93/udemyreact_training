@@ -9,7 +9,7 @@ export default function Modal({ children, handleClose }) {
         <div className='modal-backdrop'>
             <div className='modal'>
                 {children}
-                <button onClick={handleClose}>Close</button>
+                <center><button onClick={handleClose}>Close</button></center>
             </div>
         </div>
     ),document.body)

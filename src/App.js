@@ -4,17 +4,20 @@ import React, { useState } from 'react';
 import Title from './Components/Title';
 import Modal from './Components/Modal';
 import EventList from './Components/EventList';
+import NewEventForm from './Components/NewEventForm';
 
 function App() {
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('mario');
-  const [showEvt, setShowEvt] = useState(true);
-  const [evt, setEvts] = useState([
-    { name: "Mario's bday bash", key: 1 },
-    { name: "Luigi's party", key: 2 },
-    { name: "Ron's race", key: 3 }])
+  const [showEvt, setShowEvt] = useState(false);
+  const [evt, setEvts] = useState([]);
 
-  console.log(`Modal = ${modal}`);
+  const addEvent = (event) => {
+    setEvts((prevEvents) => {
+      return([...prevEvents,event])
+    })
+    setModal(false);
+  }
 
   const handleClose = () => {
     setModal(!modal);
@@ -25,7 +28,7 @@ function App() {
     //console.log(id);
     setEvts((prevEvent) => {
       return prevEvent.filter((event) => {
-        return id !== event.key;
+        return id !== event.id;
       })
     });
 
@@ -46,19 +49,21 @@ function App() {
       {showEvt && (<div><button onClick={handleShowEvt}>Hide events</button></div>)}
 
       {showEvt && <div>
-        <EventList events={evt} handleDelete = {handleClick}/></div>}
-        
-        
-        <div><button onClick={handleClose}>Show Offers</button></div>
-        
-        
-        {modal && (<Modal handleClose={handleClose}>
-          <h2>10% Off Coupon</h2>
+        <EventList events={evt} handleDelete={handleClick} /></div>}
+
+
+      <div><button onClick={handleClose}>Add New Event</button></div>
+
+
+      {modal && (<Modal handleClose={handleClose}>
+        <NewEventForm addEvent={addEvent}/>
+
+        {/**<h2>10% Off Coupon</h2>
           <p>Use Code ____ to checkout</p>
           {/** <button onClick={handleClose}>Close</button>*/}
-        </Modal>)}
-      </div>
-      );
+      </Modal>)}
+    </div>
+  );
 }
 
-      export default App;
+export default App;
