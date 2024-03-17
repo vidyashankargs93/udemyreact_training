@@ -1,9 +1,9 @@
-function Title(){
+function Title(props){
     return(
-        <div>
-            <h1 className="title">Welcome to Mario</h1>
-            <h3 className="subtitle">& Luigi's family</h3>
-        </div>
+        <>
+            <h1 className="title">{props.title}</h1><br/>
+            <h3 className="subtitle">{props.subtitle}</h3>
+        </>
 
     )
 
